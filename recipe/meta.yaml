@@ -27,7 +27,7 @@ source:
       #- https://ftp.gnu.org/gnu/gcc/gcc-{{ version }}/gcc-{{ version }}.tar.gz
       - https://mirrors.ocf.berkeley.edu/gnu/gcc/gcc-{{ version }}/gcc-{{ version }}.tar.gz
     sha256: 48be131b8c719db967cf0265a0ccb0cab2a3b224d5bb42f84904f0c1744213e6   # [gcc_version == "16.1.0"]
-    sha256: 7294d65cc1a0558cb815af0ca8c7763d86f7a31199794ede3f630c0d1b0a5723   # [gcc_version == "15.2.0"]
+    sha256: d6c1a7d2da0f2a3bc52c7d02fdd4a531ead78fd694dd31cae1ca532cf5e2b7e3   # [gcc_version == "15.3.0"]
     sha256: ace8b8b0dbfe6abfc22f821cb093e195aa5498b7ccf7cd23e4424b9f14afed22   # [gcc_version == "14.3.0"]
     patches:
       - patches/0001-allow-commands-in-main-specfile.patch
