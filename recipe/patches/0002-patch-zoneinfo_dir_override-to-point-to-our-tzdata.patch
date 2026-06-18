@@ -1,32 +1,33 @@
-From 57a31fa704c20da851f02c2a7acd57eebd92454b Mon Sep 17 00:00:00 2001
+From fa998756ea8513d4639dcf9d9d33584e2408033d Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Fri, 21 Jun 2024 12:41:07 +1100
 Subject: [PATCH 2/4] patch zoneinfo_dir_override to point to our tzdata
 
 ---
- libstdc++-v3/src/c++20/tzdb.cc | 78 ++++++++++++++++++++++++++++------
- 1 file changed, 65 insertions(+), 13 deletions(-)
+ libstdc++-v3/src/c++20/tzdb.cc | 79 +++++++++++++++++++++++++++++-----
+ 1 file changed, 68 insertions(+), 11 deletions(-)
 
 diff --git a/libstdc++-v3/src/c++20/tzdb.cc b/libstdc++-v3/src/c++20/tzdb.cc
-index 169810349e8..f54efe7de08 100644
+index b0fbfc46a6d..cc4ba02e093 100644
 --- a/libstdc++-v3/src/c++20/tzdb.cc
 +++ b/libstdc++-v3/src/c++20/tzdb.cc
-@@ -44,8 +44,12 @@
- # include <unistd.h>  // readlink
+@@ -65,6 +65,15 @@
+ # define USE_ATOMIC_SHARED_PTR 0
  #endif
  
--#ifdef _AIX
--# include <cstdlib>   // getenv
-+#if defined(__linux__)
++// moved here because the diff-context further up changed between GCC 15&16
++#if defined(__linux__) || defined(__APPLE__)
 +# include <dlfcn.h>   // dladdr
 +# include <cstdlib>   // free, malloc, realpath
 +# include <cstring>   // memcpy, strlen
-+#else defined(_WIN32)
++#elif defined(_WIN32)
 +# include <windows.h>
++#endif
++
+ #if USE_ATOMIC_SHARED_PTR && ! USE_ATOMIC_LIST_HEAD
+ # error Unsupported combination
  #endif
- 
- #if defined __GTHREADS && ATOMIC_POINTER_LOCK_FREE == 2
-@@ -71,25 +75,73 @@
+@@ -79,25 +88,73 @@
  
  namespace __gnu_cxx
  {
@@ -68,20 +69,20 @@ index 169810349e8..f54efe7de08 100644
 +      DWORD total_length = GetModuleFileNameW(hm, buffer, sizeof(buffer));
 +      if (total_length) {
 +        this_lib = (char*)malloc(total_length + 1);
-+        memcpy(this_lib, buffer, total_length);
++        memcpy(this_lib, buffer, total_length + 1); // include NUL
 +#else
 +    // we're in $PREFIX/lib/libstdcxx.so
 +#   define TO_PREFIX "/.."
 +#   define PATH_SEP '/'
-+    char buffer[PATH_MAX];
 +    Dl_info info;
 +
 +    if (dladdr(addr, &info)) {
-+      char* resolved = realpath(info.dli_fname, buffer);
++      char* resolved = realpath(info.dli_fname, nullptr);
 +      if (resolved) {
 +        int total_length = (int)strlen(resolved);
 +        this_lib = (char*)malloc(total_length + 1);
-+        memcpy(this_lib, resolved, total_length);
++        memcpy(this_lib, resolved, total_length + 1); // include NUL
++        free(resolved);
 +#endif
 +
 +        for (i = (int)total_length - 1; i >= 0; --i) {
