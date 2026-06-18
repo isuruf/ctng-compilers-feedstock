@@ -1,24 +1,28 @@
-From 2ffabbae193840f88decc6fec9ab4b4780d33f57 Mon Sep 17 00:00:00 2001
+From 0120fa787600438ebe7a0f3da71a6b0b07fbeb79 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Mos=C3=A8=20Giordano?= <mose@gnu.org>
 Date: Sat, 4 Jan 2025 01:48:23 +0100
-Subject: [PATCH] GCC 15: Increase fallback min macOS version for libgcc to
+Subject: [PATCH 1/4] GCC 15: Increase fallback min macOS version for libgcc to
  10.8
 
 `-mmacosx-version-min=10.5` seems to cause problems with ld64 from cctools
 (https://github.com/JuliaPackaging/Yggdrasil/pull/10132#issuecomment-2569925646),
 and in any case in Julia/BinaryBuilder we support macOS 10.12 at minimum.
 ---
- libgcc/config.host | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ libgcc/config.host | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/libgcc/config.host b/libgcc/config.host
-index 6a88ee5a2dd..733b6d79c8d 100644
+index 18a90441407..b0966a9e3f7 100644
 --- a/libgcc/config.host
 +++ b/libgcc/config.host
-@@ -246,7 +246,7 @@ case ${host} in
-       tmake_file="t-darwin-min-8 t-darwin-libgccs1 $tmake_file"
+@@ -243,10 +243,10 @@ case ${host} in
+       tmake_file="t-darwin-min-8 $tmake_file"
        ;;
-     *-*-darwin9* | *-*-darwin1[0-7]*)
+     *-*-darwin1[67]*)
+-      tmake_file="t-darwin-min-5 $tmake_file"
++      tmake_file="t-darwin-min-8 $tmake_file"
+       ;;
+     *-*-darwin9* | *-*-darwin1[0-5]*)
 -      tmake_file="t-darwin-min-5 t-darwin-libgccs1 $tmake_file"
 +      tmake_file="t-darwin-min-8 t-darwin-libgccs1 $tmake_file"
        ;;
