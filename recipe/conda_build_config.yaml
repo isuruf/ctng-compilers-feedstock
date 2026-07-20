@@ -9,7 +9,7 @@ TARGET:
 gcc_version:
   - 16.1.0
   - 15.3.0
-  - 14.3.0
+  - 14.4.0
 gcc_maj_ver:
   - 16
   - 15
