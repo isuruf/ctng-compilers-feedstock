@@ -1,11 +1,11 @@
-About ctng-compilers-feedstock-feedstock
-========================================
+About ctng-compilers-feedstock
+==============================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ctng-compilers-feedstock/blob/main/LICENSE.txt)
 
 
-About ctng-compilers-feedstock
-------------------------------
+About ctng-compilers
+--------------------
 
 Home: https://gcc.gnu.org/
 
@@ -607,10 +607,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libstdcxx--devel__win--64-green.svg)](https://anaconda.org/conda-forge/libstdcxx-devel_win-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libstdcxx-devel_win-64.svg)](https://anaconda.org/conda-forge/libstdcxx-devel_win-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libstdcxx-devel_win-64.svg)](https://anaconda.org/conda-forge/libstdcxx-devel_win-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libstdcxx-devel_win-64.svg)](https://anaconda.org/conda-forge/libstdcxx-devel_win-64) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libstdcxx--ng-green.svg)](https://anaconda.org/conda-forge/libstdcxx-ng) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libstdcxx-ng.svg)](https://anaconda.org/conda-forge/libstdcxx-ng) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libstdcxx-ng.svg)](https://anaconda.org/conda-forge/libstdcxx-ng) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libstdcxx-ng.svg)](https://anaconda.org/conda-forge/libstdcxx-ng) |
 
-Installing ctng-compilers-feedstock
-===================================
+Installing ctng-compilers
+=========================
 
-Installing `ctng-compilers-feedstock` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `ctng-compilers` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -696,17 +696,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating ctng-compilers-feedstock-feedstock
-===========================================
+Updating ctng-compilers-feedstock
+=================================
 
-If you would like to improve the ctng-compilers-feedstock recipe or build a new
+If you would like to improve the ctng-compilers recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/ctng-compilers-feedstock-feedstock are
+Note that all branches in the conda-forge/ctng-compilers-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
