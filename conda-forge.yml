@@ -1,5 +1,4 @@
 workflow_settings:
-  free_disk_space: max
   store_build_artifacts:
   - value: true
 build_platform:
