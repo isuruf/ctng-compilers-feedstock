@@ -140,6 +140,10 @@ if [[ ! ("${BUILD}" == "${HOST}" && "${HOST}" != "${TARGET}") && "${TARGET}" != 
   GCC_CONFIGURE_OPTIONS+=(--enable-lto)
 fi
 
+if [[ "${BUILD}" != "${HOST}" && "${HOST}" == *riscv64* ]]; then
+  GCC_CONFIGURE_OPTIONS+=(--enable-link-serialization)
+fi
+
 if [[ "$TARGET" == *riscv64* ]]; then
   # According to discussions with core members, https://github.com/conda/governance/blob/main/meetings/archive/20260204-conda-ecosystem.md
   # we have decided to continue using the rv64gc architecture in GCC 15, 
