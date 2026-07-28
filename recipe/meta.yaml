@@ -112,6 +112,7 @@ outputs:
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgcc.a
         {% if cross_target_platform.startswith("linux-") %}
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgcc_s.so
+        - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgcc_s_asneeded.so     # [gcc_maj_ver >= 16]
         {% elif cross_target_platform == "osx-64" %}
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgcc_s.1.dylib
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgcc_s.1.1.dylib
@@ -616,6 +617,7 @@ outputs:
         - {{ cross_target_stdlib }}_{{ cross_target_platform }}  # [cross_target_stdlib != "None"]
       commands:
         - test -f ${PREFIX}/lib/libgcc_s.so                                                         # [linux]
+        - test -f ${PREFIX}/lib/libgcc_s_asneeded.so                                                # [linux and (gcc_maj_ver >= 16)]
         - test -f ${PREFIX}/lib/libgcc_s.1.1.dylib                                                  # [osx]
         - test -f ${PREFIX}/lib/libgomp.so.{{ libgomp_ver[0:1] }}                                   # [linux]
         - test `readlink ${PREFIX}/lib/libgomp.so.{{ libgomp_ver[0:1] }}` == "libgomp.so.{{ libgomp_ver }}"   # [linux]

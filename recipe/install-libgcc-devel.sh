@@ -18,6 +18,8 @@ make -C ${TARGET}/libgcc prefix=${PREFIX} install
 # in gcc_impl_{{ cross_target_platform }}, c.f. install-gcc.sh
 if [[ "${TARGET}" == *linux* ]]; then
   mv ${PREFIX}/lib/libgcc_s.so* ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}
+  # only for GCC 16+
+  mv ${PREFIX}/lib/libgcc_s_asneeded.so* ${PREFIX}/lib/gcc/${TARGET}/${gcc_version} || true
 elif [[ "${TARGET}" == *darwin* ]]; then
   mv ${PREFIX}/lib/libgcc_s*.dylib ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}
 else

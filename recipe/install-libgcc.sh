@@ -30,6 +30,8 @@ pushd ${SRC_DIR}/build
 
       if [[ "${TARGET}" == *linux* ]]; then
         install -c -m 644 ./libgcc_s.so.1 ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}/libgcc_s.so.1
+        # only for GCC 16+
+        install -c -m 644 ./libgcc_s_asneeded.so ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}/libgcc_s_asneeded.so || true
         cp $RECIPE_DIR/libgcc_s.so.ldscript ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}/libgcc_s.so
       elif [[ "${TARGET}" == *darwin* ]]; then
         install -c -m 644 ./libgcc_s.1.dylib ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}/libgcc_s.1.dylib
