@@ -41,7 +41,7 @@ if [[ ! -d ${SRC_DIR}/cf-compilers ]]; then
         "make"
       )
     fi
-    conda create -p ${CF_PREFIX} -c conda-forge/label/gcc-experimental -c conda-forge --use-local --yes --quiet \
+    conda create -p ${CF_PREFIX} -c conda-forge --use-local --yes --quiet \
       "gcc_impl_${build_platform}" \
       "gxx_impl_${build_platform}" \
       "gfortran_impl_${build_platform}" \
