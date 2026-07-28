@@ -616,7 +616,7 @@ outputs:
         - {{ cross_target_stdlib }}_{{ cross_target_platform }}  # [cross_target_stdlib != "None"]
       commands:
         - test -f ${PREFIX}/lib/libgcc_s.so                                                         # [linux]
-        - test -f ${PREFIX}/lib/libgcc_s.1.dylib                                                    # [osx]
+        - test -f ${PREFIX}/lib/libgcc_s.1.1.dylib                                                  # [osx]
         - test -f ${PREFIX}/lib/libgomp.so.{{ libgomp_ver[0:1] }}                                   # [linux]
         - test `readlink ${PREFIX}/lib/libgomp.so.{{ libgomp_ver[0:1] }}` == "libgomp.so.{{ libgomp_ver }}"   # [linux]
         - test `readlink ${PREFIX}/lib/libgomp.so.{{ libgomp_ver[0:1] }}` == "libgomp.so.{{ libgomp_ver }}"   # [linux]
