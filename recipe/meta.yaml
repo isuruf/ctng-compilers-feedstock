@@ -40,7 +40,7 @@ source:
       # for GCC 15: https://github.com/msys2/MINGW-packages/tree/f59921184b35858d4ceb91679578de0d62475cbf/mingw-w64-gcc
       # for GCC 14: https://github.com/msys2/MINGW-packages/tree/331bf945d21af562d228ed46bda21c8272d1e76e/mingw-w64-gcc
       - patches/mingw/{{ gcc_maj_ver }}/0003-Windows-Follow-Posix-dir-exists-semantics-more-close.patch
-      - patches/mingw/{{ gcc_maj_ver }}/0005-Windows-Don-t-ignore-native-system-header-dir.patch                # [gcc_maj_ver != 16]
+      - patches/mingw/{{ gcc_maj_ver }}/0005-Windows-Don-t-ignore-native-system-header-dir.patch                # [gcc_maj_ver < 16]
       - patches/mingw/{{ gcc_maj_ver }}/0007-Build-EXTRA_GNATTOOLS-for-Ada.patch
       - patches/mingw/{{ gcc_maj_ver }}/0008-Prettify-linking-no-undefined.patch
       - patches/mingw/{{ gcc_maj_ver }}/0011-Enable-shared-gnat-implib.patch
@@ -376,7 +376,7 @@ outputs:
         - ${CXX} -Wall hello_world.o -o hello_world --std=c++17 -v
 
         # test tzdb integration
-      {% if (gcc_maj_ver|int >= 14) and cross_target_cxx_stdlib == "libstdcxx" %}
+      {% if cross_target_cxx_stdlib == "libstdcxx" %}
         - ${CXX} -isystem ${PREFIX}/include --std=c++20 -Wall tests/tzdb-override.cpp -c -o tzdb-override.o -v
         - ${CXX} -isystem ${PREFIX}/include --std=c++20 -Wall tests/tzdb.cpp -c -o tzdb.o -v
         {% if target_platform == cross_target_platform %}
