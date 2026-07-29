@@ -228,6 +228,11 @@ fi
   
 mkdir -p ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}/
 for name in atomic atomic_asneeded gomp itm quadmath {a,hwa,l,t,ub}san; do
+  if [[ "${HOST}" == *mingw* && "${name}" == "atomic_asneeded" ]]; then
+    # libatomic_asneeded.a (only for v16+) is a symlink itself,
+    # which causes downstream issues on windows; delete it
+    rm ${PREFIX}/lib/lib${name}.a || true
+  fi
   # depending on the order of iteration (and thus file moves), symlinks from one lib to another
   # (e.g. libatomic_asneeded.a -> libatomic.a) might not be valid; allow broken symlinks with -L
   if [[ -e "${PREFIX}/lib/lib${name}.a" || -L "${PREFIX}/lib/lib${name}.a" ]]; then

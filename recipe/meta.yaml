@@ -236,6 +236,7 @@ outputs:
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgcc_s.a
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libquadmath.a
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgomp.a
+        - test ! -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libatomic_asneeded.a   # [win]
         {% endif %}
         - test -f ${PREFIX}/lib/gcc/{{ TARGET }}/{{ gcc_version }}/libgomp.spec
     about:
