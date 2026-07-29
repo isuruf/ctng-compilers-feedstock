@@ -9,7 +9,7 @@ c_stdlib:
 c_stdlib_version:
 - '2.39'
 channel_sources:
-- conda-forge/label/sysroot-with-crypt,conda-forge
+- conda-forge
 channel_targets:
 - conda-forge main
 cross_target_cxx_stdlib:
