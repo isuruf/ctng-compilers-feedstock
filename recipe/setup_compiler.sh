@@ -41,8 +41,7 @@ if [[ ! -d ${SRC_DIR}/cf-compilers ]]; then
         "make"
       )
     fi
-    # Remove conda-forge/label/sysroot-with-crypt when GCC < 14 is dropped
-    conda create -p ${CF_PREFIX} -c conda-forge/label/gcc-experimental -c conda-forge/label/sysroot-with-crypt -c conda-forge --use-local --yes --quiet \
+    conda create -p ${CF_PREFIX} -c conda-forge --use-local --yes --quiet \
       "gcc_impl_${build_platform}" \
       "gxx_impl_${build_platform}" \
       "gfortran_impl_${build_platform}" \
@@ -54,13 +53,13 @@ if [[ ! -d ${SRC_DIR}/cf-compilers ]]; then
       ${extra_pkgs[@]}
 
     if [[ "${TARGET}" == *darwin* ]]; then
-      CONDA_OVERRIDE_OSX=15.5 CONDA_SUBDIR="${cross_target_platform}" conda create -p $SRC_DIR/cf-compilers-target -c conda-forge/label/sysroot-with-crypt -c conda-forge --use-local --yes --quiet libcxx-devel
+      CONDA_OVERRIDE_OSX=15.5 CONDA_SUBDIR="${cross_target_platform}" conda create -p $SRC_DIR/cf-compilers-target -c conda-forge --use-local --yes --quiet libcxx-devel
       mkdir -p ${CF_PREFIX}/${TARGET}/lib
       ln -sf $SRC_DIR/cf-compilers-target/lib/libc++* ${CF_PREFIX}/${TARGET}/lib
 
     fi
     if [[ "${HOST}" == *darwin* && "${HOST}" != "${TARGET}" ]]; then
-      CONDA_OVERRIDE_OSX=15.5 CONDA_SUBDIR="${target_platform}" conda create -p $SRC_DIR/cf-compilers-host -c conda-forge/label/sysroot-with-crypt -c conda-forge --use-local --yes --quiet libcxx-devel
+      CONDA_OVERRIDE_OSX=15.5 CONDA_SUBDIR="${target_platform}" conda create -p $SRC_DIR/cf-compilers-host -c conda-forge --use-local --yes --quiet libcxx-devel
       mkdir -p ${CF_PREFIX}/${HOST}/lib
       ln -sf $SRC_DIR/cf-compilers-host/lib/libc++* ${CF_PREFIX}/${HOST}/lib
     fi
