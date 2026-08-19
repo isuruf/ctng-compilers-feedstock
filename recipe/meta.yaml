@@ -1,5 +1,5 @@
 {% set version = gcc_version %}
-{% set build_num = 1 %}
+{% set build_num = 2 %}
 
 {% if gcc_maj_ver is not defined %}
 {% set gcc_maj_ver = 15 %}
@@ -398,6 +398,8 @@ outputs:
     script: install-symlinks.sh
     build:
       skip: true  # [target_platform != cross_target_platform]
+      track_features:            # [not with_conda_specs]
+        - gcc_no_conda_specs     # [not with_conda_specs]
     requirements:
       host:
         - {{ pin_subpackage("gxx_impl_" ~ cross_target_platform, exact=True) }}
@@ -406,6 +408,7 @@ outputs:
       run:
         - {{ pin_subpackage("gxx_impl_" ~ cross_target_platform, exact=True) }}
         - {{ pin_subpackage("gcc", exact=True) }}
+        - conda-gcc-specs        # [with_conda_specs]
     test:
       commands:
         - ${PREFIX}/bin/g++ -v
@@ -476,6 +479,8 @@ outputs:
     script: install-symlinks.sh
     build:
       skip: true  # [target_platform != cross_target_platform]
+      track_features:            # [not with_conda_specs]
+        - gcc_no_conda_specs     # [not with_conda_specs]
     requirements:
       host:
         - {{ pin_subpackage("gfortran_impl_" ~ cross_target_platform, exact=True) }}
@@ -486,6 +491,7 @@ outputs:
         - {{ pin_subpackage("gfortran_impl_" ~ cross_target_platform, exact=True) }}
         - {{ pin_subpackage("gcc_impl_" ~ cross_target_platform, exact=True) }}
         - {{ pin_subpackage("gcc", exact=True) }}
+        - conda-gcc-specs        # [with_conda_specs]
     test:
       commands:
         - ${PREFIX}/bin/gfortran -v
